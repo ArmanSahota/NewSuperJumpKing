@@ -8,6 +8,9 @@ const maxJumpSpeed = 22
 const jumpSpeedHorizontal = 8
 const terminalVelocity = 20
 const MAX_JUMP_HEIGHT = -850 
+const WALL_JUMP_FORCE = 300.0
+
+
 
 
 @onready var sprite_2d = $Sprite2D
@@ -51,10 +54,22 @@ func _physics_process(delta):
 			velocity.x = 0
 	elif is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, 15)
-
+	
+	var isLeft = velocity.x < 0
+	var isRight = velocity.x > 0
+	
+	
+	if is_on_wall() and not is_on_floor():
+		if sprite_2d.is_flipped_h():
+			velocity.x = WALL_JUMP_FORCE
+			
+		elif not sprite_2d.is_flipped_h():  # Character is moving left
+			velocity.x = -WALL_JUMP_FORCE
+			
+			
 	move_and_slide()
 
-	var isLeft = velocity.x < 0
+	
 	sprite_2d.flip_h = isLeft
 	
 	
@@ -71,5 +86,7 @@ func jump():
 		velocity = Vector2(jumpSpeedHorizontal, vertical_jump_speed)
 	else:
 		velocity.y = vertical_jump_speed
-
+	
+		
+		
 
