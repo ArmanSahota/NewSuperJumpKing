@@ -8,7 +8,7 @@ const maxJumpSpeed = 22
 const jumpSpeedHorizontal = 8
 const terminalVelocity = 20
 const MAX_JUMP_HEIGHT = -850 
-const WALL_JUMP_FORCE = 300.0
+const WALL_JUMP_FORCE = 300
 
 
 
