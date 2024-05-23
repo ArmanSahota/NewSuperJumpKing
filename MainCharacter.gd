@@ -68,7 +68,7 @@ func _physics_process(delta):
 			
 			
 	move_and_slide()
-
+	swing()
 	
 	sprite_2d.flip_h = isLeft
 	
@@ -90,8 +90,12 @@ func jump():
 		
 
 func swing():
-	if Input.is_action_pressed("swing"):
-		sprite_2d.animation = "swing"
+	if Input.is_action_just_pressed("hit"):
+		sprite_2d.animation = "hit"
+		Engine.time_scale = 0.1
+	else:
+		Engine.time_scale= 1
+		
 
 
 func _on_area_2d_body_entered(body):
