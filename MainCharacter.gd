@@ -56,7 +56,7 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, 15)
 	
 	var isLeft = velocity.x < 0
-	var isRight = velocity.x > 0
+	
 	
 	
 	if is_on_wall() and not is_on_floor():
@@ -88,5 +88,11 @@ func jump():
 		velocity.y = vertical_jump_speed
 	
 		
-		
 
+func swing():
+	if Input.is_action_pressed("swing"):
+		sprite_2d.animation = "swing"
+
+
+func _on_area_2d_body_entered(body):
+	pass # Replace with function body.
