@@ -1705,8 +1705,8 @@ can_sleep = false
 position = Vector2(5666, -243)
 scale = Vector2(5.1413, 3.72321)
 sprite_frames = SubResource("SpriteFrames_syujq")
-animation = &"open_door"
-frame_progress = 0.289257
+animation = &"idle"
+frame_progress = 0.558815
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/RigidBody2D"]
 position = Vector2(5667, -241)
