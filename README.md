@@ -1,5 +1,26 @@
 # NewSuperJumpKing
  A mix of JumpKing and New Super Mario Bros
+
+## Date: 6/9/2024
+### Features Added:
+- Keys and doors
+- Title Screen
+- Second Level
+- Enemies
+### Still need to add:
+- Enemy and bottom of the screen death/reset
+- Finish the second level and add the next 3
+- Add Traps
+- Add PowerUps
+### Issues Encountered:
+- Swing animation would not change so I scrapped the idea to go with a new super mario bros type of collision where the character jumps onto the enemy head
+- The Door walk-in animation does not play unless I hold down the enter key
+### Lesson Learned:
+- After enough tutorials with some trial and error I can do most things on my own
+- making enemies separate from the map makes it easier to implement them in later levels. 
+
+
+
  
 ## Date: 5/27/2024
 ### Features Added:
