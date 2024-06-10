@@ -1,5 +1,22 @@
 # NewSuperJumpKing
  A mix of JumpKing and New Super Mario Bros
+ 
+## Date: 5/27/2024
+### Features Added:
+- Swing animation
+- Exit the level door
+### Still need to add:
+- The swing animation is running too fast for my liking.
+- need to create a title screen
+- Enemies to enconter
+- Second level
+- collectables
+### Issues Encountered:
+- When implementing the swing animation I accidentally clicked on making my character's hitbox not visible. This made my character fall through the map over and over again. 
+### Lesson Learned:
+- Save multiple repositories. I lost my exit door feature and had to look back at two previously saved repositories to find and implement it again.
+- Watch more youtube videos when I get stuck. I tried on my own to get the door to open and close when I hit it but I couldn't get it. I will use youtube to guide me this coming week. 
+
 
 ## Date: 5/12/2024
 ### Features Added:
