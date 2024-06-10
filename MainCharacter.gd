@@ -10,22 +10,63 @@ const terminalVelocity = 20
 const MAX_JUMP_HEIGHT = -850 
 const WALL_JUMP_FORCE = 300
 
+@onready var game_manager = %GameManager
+@onready var door = %Door
 
+enum state {IDLE, RUNNING, JUMPUP, JUMPDOWN, HURT, CHARGE, INTODOOR}
 
-
-@onready var sprite_2d = $Sprite2D
+@onready var animator = $Sprite2D
+@onready var sprite_2d_player = $AnimationPlayer
 var charge_time = 0.0
 var is_charging = false
-
+var anim_state = state.IDLE	
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+# update state
+func update_state():
+	if anim_state == state.HURT:
+		return
+	if is_on_floor():
+		if velocity == Vector2.ZERO:
+			anim_state = state.IDLE
+		elif velocity.x != 0:
+			anim_state = state.RUNNING
+	else:
+		if velocity.y < 0:
+			anim_state = state.JUMPUP
+		else:
+			anim_state = state.JUMPDOWN		
+	if Input.is_action_pressed("jump") and is_on_floor():
+		anim_state = state.CHARGE
+		
+	if anim_state == state.INTODOOR:
+		return
+		
 
+	
+		
+func update_animation(direction):
+	if direction > 0:
+		animator.flip_h = false
+	elif direction < 0:
+		animator.flip_h = true
+	match anim_state:
+		state.IDLE:
+			sprite_2d_player.play("default")
+		state.RUNNING:
+			sprite_2d_player.play("running")
+		state.JUMPUP:
+			sprite_2d_player.play("jumpup")
+		state.JUMPDOWN:
+			sprite_2d_player.play("jumpDown")
+		state.HURT:
+			sprite_2d_player.play("damage")
+		state.CHARGE:
+			sprite_2d_player.play("charge")
+		state.INTODOOR:
+			sprite_2d_player.play("intoDoor")
 func _physics_process(delta):
 	# Animations
-	if abs(velocity.x) > 1:
-		sprite_2d.animation = "running"
-	else:
-		sprite_2d.animation = "default"
 
 	# Add the gravity.
 	if not is_on_floor():
@@ -37,12 +78,12 @@ func _physics_process(delta):
 	if Input.is_action_pressed("jump") and is_on_floor():
 		is_charging = true
 		charge_time += delta
-		sprite_2d.animation = "charge"  # Play the charge animation
 		
+		update_state()
 	elif is_charging:
 		# Release jump key: Jump with charge proportional to charge_time
 		jump()
-		sprite_2d.animation = "jumping"
+		
 		is_charging = false
 		charge_time = 0.0
 		
@@ -60,17 +101,18 @@ func _physics_process(delta):
 	
 	
 	if is_on_wall() and not is_on_floor():
-		if sprite_2d.is_flipped_h():
+		if animator.is_flipped_h():
 			velocity.x = WALL_JUMP_FORCE
 			
-		elif not sprite_2d.is_flipped_h():  # Character is moving left
+		elif not animator.is_flipped_h():  # Character is moving left
 			velocity.x = -WALL_JUMP_FORCE
 			
 			
+	update_state()
+	update_animation(direction)
 	move_and_slide()
-	swing()
 	
-	sprite_2d.flip_h = isLeft
+	animator.flip_h = isLeft
 	
 	
 func jump():
@@ -86,17 +128,13 @@ func jump():
 		velocity = Vector2(jumpSpeedHorizontal, vertical_jump_speed)
 	else:
 		velocity.y = vertical_jump_speed
+	update_state()
 	
+func play_walk_in_animation():
+	if game_manager.keys == 1:
+		$AnimationPlayer.play("intoDoor")
 		
-
-func swing():
-	if Input.is_action_just_pressed("hit"):
-		sprite_2d.animation = "hit"
-		Engine.time_scale = 0.1
-	else:
-		Engine.time_scale= 1
-		
+		print("intodoor")
+		return
 
 
-func _on_area_2d_body_entered(body):
-	pass # Replace with function body.

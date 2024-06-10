@@ -1,0 +1,134 @@
+[gd_scene load_steps=14 format=3 uid="uid://c0u48mh003ylg"]
+
+[ext_resource type="Texture2D" uid="uid://curctobngjqmx" path="res://Scenes/walk/_0000_Layer-1.png" id="1_5wjy1"]
+[ext_resource type="Script" path="res://Scenes/snake.gd" id="1_8slvj"]
+[ext_resource type="Texture2D" uid="uid://b67waclb1ng5t" path="res://Scenes/walk/_0001_Layer-2.png" id="2_0cu57"]
+[ext_resource type="Texture2D" uid="uid://wwtfer2iynqm" path="res://Scenes/walk/spring/_0000_Layer-1.png" id="2_pnaq2"]
+[ext_resource type="Texture2D" uid="uid://bcyp0ko8imvlt" path="res://Scenes/walk/_0002_Layer-3.png" id="3_dhsrp"]
+[ext_resource type="Texture2D" uid="uid://dyo5hdfcwkxh4" path="res://Scenes/walk/spring/_0001_Layer-2.png" id="3_yuwab"]
+[ext_resource type="Texture2D" uid="uid://j8qwmjecoqqd" path="res://Scenes/walk/_0003_Layer-4.png" id="4_b4h5w"]
+[ext_resource type="Texture2D" uid="uid://b14tyhu5ndbaw" path="res://Scenes/walk/spring/_0002_Layer-3.png" id="4_o6b5h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2wi5m"]
+radius = 27.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qdjvu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pnaq2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yuwab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_o6b5h")
+}],
+"loop": true,
+"name": &"Jumpsnake",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5wjy1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0cu57")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dhsrp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_b4h5w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_fjbjb"]
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Jumpsnake"]
+}
+
+[sub_resource type="Animation" id="Animation_np8p6"]
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["default"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ns801"]
+_data = {
+"Jumpsnake": SubResource("Animation_fjbjb"),
+"default": SubResource("Animation_np8p6")
+}
+
+[node name="Snake" type="CharacterBody2D"]
+script = ExtResource("1_8slvj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_2wi5m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Hurt"]]
+position = Vector2(-4, -2)
+scale = Vector2(2.75926, 3.15)
+sprite_frames = SubResource("SpriteFrames_qdjvu")
+animation = &"Jumpsnake"
+autoplay = "default"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.02
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ns801")
+}
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

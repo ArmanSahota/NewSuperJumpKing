@@ -496,6 +496,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_lpj4c"]
 length = 0.4
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -800,7 +801,7 @@ visibility_layer = 7
 texture_filter = 1
 position = Vector2(24, 15)
 sprite_frames = SubResource("SpriteFrames_4wy6o")
-animation = &"damage"
+animation = &"OutofDoor"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

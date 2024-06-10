@@ -1,0 +1,97 @@
+[gd_scene load_steps=14 format=3 uid="uid://dw8jlaa0l8tgt"]
+
+[ext_resource type="Texture2D" uid="uid://ddon10tic1j4m" path="res://Scenes/vulture.png" id="1_gryrs"]
+[ext_resource type="Script" path="res://Scenes/eagle.gd" id="1_ous1o"]
+[ext_resource type="Texture2D" uid="uid://d14fu1lrnjkv2" path="res://Scenes/vulture-idle.png" id="2_hxepd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wrf6t"]
+radius = 22.1359
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gkop"]
+atlas = ExtResource("1_gryrs")
+region = Rect2(0, 0, 39, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4g8ak"]
+atlas = ExtResource("1_gryrs")
+region = Rect2(39, 0, 39, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i72lv"]
+atlas = ExtResource("1_gryrs")
+region = Rect2(78, 0, 39, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q63gt"]
+atlas = ExtResource("1_gryrs")
+region = Rect2(117, 0, 39, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ri13"]
+atlas = ExtResource("2_hxepd")
+region = Rect2(0, 0, 39, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fonqx"]
+atlas = ExtResource("2_hxepd")
+region = Rect2(39, 0, 39, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgxb3"]
+atlas = ExtResource("2_hxepd")
+region = Rect2(78, 0, 39, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phwp0"]
+atlas = ExtResource("2_hxepd")
+region = Rect2(117, 0, 39, 39)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xhx5a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gkop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4g8ak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i72lv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q63gt")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ri13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fonqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgxb3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phwp0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Eagle" type="Area2D" groups=["Hurt"]]
+script = ExtResource("1_ous1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -1)
+shape = SubResource("CircleShape2D_wrf6t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-7.62939e-06, -4)
+scale = Vector2(2.01282, 1.65385)
+sprite_frames = SubResource("SpriteFrames_xhx5a")
+animation = &"attack"
+autoplay = "attack"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.996
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
