@@ -17,7 +17,7 @@ func _on_animation_finished(anim_name):
 		next_level()
 
 func next_level():
-	var ERR = get_tree().change_scene_to_file("res://Scenes/Level2.tscn")
+	var ERR = get_tree().change_scene_to_file("res://Scenes/Level3.tscn")
 	if ERR != OK:
 		print("Failed to change scene: ", ERR)
 

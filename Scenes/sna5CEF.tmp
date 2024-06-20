@@ -9,9 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://j8qwmjecoqqd" path="res://Scenes/walk/_0003_Layer-4.png" id="4_b4h5w"]
 [ext_resource type="Texture2D" uid="uid://b14tyhu5ndbaw" path="res://Scenes/walk/spring/_0002_Layer-3.png" id="4_o6b5h"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hhcty"]
-radius = 13.0
-height = 52.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_2wi5m"]
+radius = 22.8035
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qdjvu"]
 animations = [{
@@ -114,18 +113,16 @@ script = ExtResource("1_8slvj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
-shape = SubResource("CapsuleShape2D_hhcty")
+shape = SubResource("CircleShape2D_2wi5m")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Hit", "Hurt"]]
-texture_filter = 1
-position = Vector2(-6, -1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Hurt"]]
+position = Vector2(-2, -10)
 scale = Vector2(2.75926, 3.15)
 sprite_frames = SubResource("SpriteFrames_qdjvu")
-animation = &"Jumpsnake"
 autoplay = "default"
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.81
+wait_time = 2.02
 autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

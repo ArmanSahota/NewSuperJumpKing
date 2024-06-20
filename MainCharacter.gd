@@ -9,11 +9,25 @@ const jumpSpeedHorizontal = 8
 const terminalVelocity = 20
 const MAX_JUMP_HEIGHT = -850 
 const WALL_JUMP_FORCE = 300
+var attack_cooldown = 0.5  # Adjust this value as needed
+var last_attack_time = 0.0
 
 @onready var game_manager = %GameManager
 @onready var door = %Door
+@onready var area_2d = $Area2D
+@onready var swing_shape_2d = $Area2D/swingShape2D
 
-enum state {IDLE, RUNNING, JUMPUP, JUMPDOWN, HURT, CHARGE, INTODOOR}
+@onready var start_pos = global_position
+
+func reset():
+	global_position = start_pos
+	set_physics_process(true)
+	anim_state = state.IDLE
+	
+	get_tree().reload_current_scene()
+	
+
+enum state {IDLE, RUNNING, JUMPUP, JUMPDOWN, HURT, CHARGE, INTODOOR, ATTACK}
 
 @onready var animator = $Sprite2D
 @onready var sprite_2d_player = $AnimationPlayer
@@ -41,6 +55,8 @@ func update_state():
 		
 	if anim_state == state.INTODOOR:
 		return
+	if anim_state == state.ATTACK:
+		return
 		
 
 	
@@ -59,15 +75,19 @@ func update_animation(direction):
 			sprite_2d_player.play("jumpup")
 		state.JUMPDOWN:
 			sprite_2d_player.play("jumpDown")
+		
 		state.HURT:
-			sprite_2d_player.play("damage")
+			game_manager.add_deaths()
+			sprite_2d_player.play("death")
+			await sprite_2d_player.animation_finished  # Wait for the death animation to finish
+			reset()  # Reset the character
 		state.CHARGE:
 			sprite_2d_player.play("charge")
 		state.INTODOOR:
 			sprite_2d_player.play("intoDoor")
+		
 func _physics_process(delta):
-	# Animations
-
+	# swing
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -114,7 +134,8 @@ func _physics_process(delta):
 	
 	animator.flip_h = isLeft
 	
-	
+
+
 func jump():
 	var vertical_jump_speed = lerp(minJumpSpeed, maxJumpSpeed, charge_time / MAX_CHARGE) * JUMP_VELOCITY  # Multiply by JUMP_VELOCITY to control jump speed
 	
@@ -136,5 +157,27 @@ func play_walk_in_animation():
 		
 		print("intodoor")
 		return
+func enemy_hitter(enemy):
+	if enemy.is_in_group("Hit"):
+		enemy.die()
+
+func enemy_checker(enemy):
+	if enemy.is_in_group("Enemy") and anim_state == state.CHARGE:
+		enemy.die()
+		velocity.y = MAX_JUMP_HEIGHT
+	 
+	
+	if enemy.is_in_group("Enemy") and velocity.y > 0:
+		enemy.die()
+		velocity.y = MAX_JUMP_HEIGHT
+	elif(enemy.is_in_group("Hurt")):
+		anim_state = state.HURT
+func _on_hit_box_area_entered(area):
+	enemy_checker(area)
+	
+
+
+func _on_hit_box_body_entered(body):
+	enemy_checker(body)
 
 

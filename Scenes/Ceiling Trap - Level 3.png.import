@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jj0gpb0xyk2m"
-path="res://.godot/imported/background.png-4f13debe3191332d191b6668ea7cf1f3.ctex"
+uid="uid://dtwnk8pte8x7v"
+path="res://.godot/imported/Ceiling Trap - Level 3.png-ca9f56aacec4570bd3372742f8723b53.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/background.png"
-dest_files=["res://.godot/imported/background.png-4f13debe3191332d191b6668ea7cf1f3.ctex"]
+source_file="res://Scenes/Ceiling Trap - Level 3.png"
+dest_files=["res://.godot/imported/Ceiling Trap - Level 3.png-ca9f56aacec4570bd3372742f8723b53.ctex"]
 
 [params]
 

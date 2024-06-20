@@ -1,0 +1,222 @@
+[gd_scene load_steps=21 format=3 uid="uid://cq50n3ab7xb50"]
+
+[ext_resource type="Texture2D" uid="uid://df6x76xwnxjmf" path="res://Scenes/Fire Trap - Level 3.png" id="1_gj68c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhame"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2n1jx"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c01lm"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_115a0"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(96, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_em0nl"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(128, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q4pj"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(160, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fukm7"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(192, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xht75"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(224, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yapu6"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(256, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_so4bn"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(288, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yvn7"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(320, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_is7lq"]
+atlas = ExtResource("1_gj68c")
+region = Rect2(352, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4twjy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhame")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2n1jx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c01lm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_115a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_em0nl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5q4pj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fukm7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xht75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yapu6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_so4bn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5yvn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_is7lq")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_fomjx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_yxmft"]
+resource_name = "new_animation"
+
+[sub_resource type="Animation" id="Animation_05nvb"]
+length = 1.71429
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.142857, 0.285714, 0.428571, 0.571429, 0.714286, 0.857143, 1, 1.14286, 1.28571, 1.42857, 1.57143),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["FireTrapAnimation"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_tfgjc"]
+length = 2.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["default"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.4, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e4mu4"]
+_data = {
+"FireTrapAnimation": SubResource("Animation_05nvb"),
+"RESET": SubResource("Animation_fomjx"),
+"default": SubResource("Animation_tfgjc"),
+"new_animation": SubResource("Animation_yxmft")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chd5l"]
+size = Vector2(52, 100)
+
+[node name="fire_SpikeTrap" type="Area2D" groups=["Hurt"]]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.90735e-06, 0)
+scale = Vector2(2.1875, 1.51562)
+sprite_frames = SubResource("SpriteFrames_4twjy")
+frame = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e4mu4")
+}
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_chd5l")
+disabled = true

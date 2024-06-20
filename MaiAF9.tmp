@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://b6b16a4dgklyo"]
+[gd_scene load_steps=78 format=3 uid="uid://b6b16a4dgklyo"]
 
 [ext_resource type="Script" path="res://MainCharacter.gd" id="1_iqbhr"]
 [ext_resource type="Texture2D" uid="uid://cu2xpvjytrgu0" path="res://Jump (78x58).png" id="1_mvyjq"]
@@ -408,6 +408,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yb4qv"]
 size = Vector2(19.0104, 24.6667)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkkes"]
+size = Vector2(43.9167, 21.6667)
+
 [sub_resource type="Animation" id="Animation_ngp5h"]
 length = 0.0333333
 loop_mode = 1
@@ -466,6 +469,18 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_gmerk"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/swingShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_n004x"]
 loop_mode = 1
@@ -651,7 +666,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_afr4w"]
-length = 4.0
+length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -659,10 +674,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.9, 2, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0.1, 1.1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [2, 0, 1, 2]
+"values": [0, 1, 2]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -675,6 +690,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["hit"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Area2D/swingShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_1hum6"]
@@ -827,6 +854,14 @@ frame = 2
 position = Vector2(17.1615, 17.3333)
 shape = SubResource("RectangleShape2D_yb4qv")
 
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(24, 15)
+collision_mask = 2
+
+[node name="swingShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(18.0417, 3.83333)
+shape = SubResource("RectangleShape2D_kkkes")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_pg1aq")
@@ -839,5 +874,6 @@ autoplay = "default"
 position = Vector2(16.6667, 18.6667)
 shape = SubResource("RectangleShape2D_2r064")
 
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

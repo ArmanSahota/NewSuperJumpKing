@@ -76,7 +76,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Eagle" type="Area2D" groups=["Hurt"]]
+[node name="Eagle" type="Area2D" groups=["Enemy", "Hurt"]]
 script = ExtResource("1_ous1o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -84,6 +84,7 @@ position = Vector2(1, -1)
 shape = SubResource("CircleShape2D_wrf6t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 position = Vector2(-7.62939e-06, -4)
 scale = Vector2(2.01282, 1.65385)
 sprite_frames = SubResource("SpriteFrames_xhx5a")
@@ -91,7 +92,7 @@ animation = &"attack"
 autoplay = "attack"
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.996
+wait_time = 1.733
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

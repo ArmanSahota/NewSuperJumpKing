@@ -1,11 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbsxb5fie62lg"]
+[gd_scene load_steps=5 format=3 uid="uid://drs6e46eab4oc"]
 
-[ext_resource type="Texture2D" uid="uid://ca64pbosv04il" path="res://Woods.png" id="1_6f6rk"]
-[ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_mes1n"]
-[ext_resource type="Texture2D" uid="uid://no3l5k6x4r85" path="res://Logo.png" id="2_133yk"]
+[ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_7luiq"]
+[ext_resource type="Texture2D" uid="uid://ca64pbosv04il" path="res://Woods.png" id="2_gslqs"]
+[ext_resource type="Texture2D" uid="uid://no3l5k6x4r85" path="res://Logo.png" id="3_jyh04"]
+[ext_resource type="Texture2D" uid="uid://5sntblbfiv8f" path="res://Scenes/walk/cooltext460568652250300.png" id="4_twkg1"]
 
 [node name="MainMenu" type="Node"]
-script = ExtResource("1_mes1n")
+script = ExtResource("1_7luiq")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 anchors_preset = 15
@@ -13,7 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_6f6rk")
+texture = ExtResource("2_gslqs")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 8
@@ -27,7 +28,7 @@ offset_right = 503.0
 offset_bottom = -153.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_133yk")
+texture = ExtResource("3_jyh04")
 
 [node name="Level1_Button" type="Button" parent="."]
 anchors_preset = 8
@@ -35,13 +36,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -154.0
-offset_top = 38.0
-offset_right = 146.0
-offset_bottom = 150.0
+offset_left = -145.0
+offset_top = 39.0
+offset_right = 155.0
+offset_bottom = 151.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 30
-text = "Start!"
+text = "Restart!"
+
+[node name="Cooltext460568652250300" type="Sprite2D" parent="."]
+position = Vector2(586, 234)
+texture = ExtResource("4_twkg1")
 
 [connection signal="pressed" from="Level1_Button" to="." method="_on_level_1_button_pressed"]

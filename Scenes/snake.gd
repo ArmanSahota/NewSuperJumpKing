@@ -10,7 +10,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 enum State { IDLE, RUNNING, JUMPUP, HURT }
 var anim_state = State.IDLE
-
+const EXPLOSTION = preload("res://Scenes/explostion.tscn")
 # Nodes
 @onready var animator = $AnimatedSprite2D
 @onready var sprite_2d_player = $AnimationPlayer
@@ -67,4 +67,8 @@ func update_animation():
 		State.JUMPUP:
 			sprite_2d_player.play("Jumpsnake")
 		# You might want to add a case for the HURT state if you have such an animation
-
+func die():
+	var new_explostion = EXPLOSTION.instantiate()
+	new_explostion.global_position = global_position
+	get_tree().current_scene.add_child(new_explostion)
+	queue_free()
