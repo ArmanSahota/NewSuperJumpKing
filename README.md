@@ -68,4 +68,50 @@ Since this is the first github update here is everything I have done since I sta
 - Jumping Physics was tough because when I made one feature a different feature decided to not work anymore, For example, the character is not able to move left and right white the character is in the jump animation charging. Adding that feature caused my character not to want to jump left and right, only jump up. I fixed this by adding a horizontal speed variable.
 ### Lesson Learned:
 - Save old repositories: I think I almost lost everything like 3 times while making the beginning portion of the game. If I had saved the old repositories sooner I would have had an easier time going back.
-- Commenting code: In the beginning, I was not writing what each line did or how they were being used and when I would go back to work on the code the next day it would be a struggle trying to remember everything. 
+- Commenting code: In the beginning, I was not writing what each line did or how they were being used and when I would go back to work on the code the next day it would be a struggle trying to remember everything.
+
+
+
+
+
+$FinanceOU = "Finance"
+$FinanceOUPath = "OU=$FinanceOU,DC=consultingfirm,DC=com"
+
+# 1: Check if the Organizational Unit named 'Finance' exists
+$OU = Get-ADOrganizationalUnit -Filter {Name -eq $FinanceOU} -ErrorAction SilentlyContinue
+
+# If the Organizational Unit with the Finance name already exists, then attempt to delete it
+if ($OU) {
+    Write-Host "The '$FinanceOU' Organizational Unit exists. Attempting to delete it..."
+    
+    try {
+        # Remove the Organizational Unit if it exists and is empty
+        Remove-ADOrganizationalUnit -Identity $OU.DistinguishedName -Confirm:$false
+        Write-Host "The '$FinanceOU' Organizational Unit has been deleted."
+    } catch {
+        Write-Host "Error deleting the '$FinanceOU' Organizational Unit: $_"
+    }
+} else {
+    # If OU does not exist, notify the user
+    Write-Host "The '$FinanceOU' Organizational Unit does not exist."
+}
+
+# 2: Check if the Organizational Unit 'Finance' already exists before attempting to create it
+$OUExists = Get-ADOrganizationalUnit -Filter {Name -eq $FinanceOU} -ErrorAction SilentlyContinue
+if (-not $OUExists) {
+    Write-Host "Creating the '$FinanceOU' Organizational Unit..."
+    New-ADOrganizationalUnit -Name $FinanceOU -Path "DC=consultingfirm,DC=com"
+    Write-Host "The '$FinanceOU' Organizational Unit has been created."
+} else {
+    Write-Host "The '$FinanceOU' Organizational Unit already exists."
+}
+
+
+
+
+
+
+
+
+
+
