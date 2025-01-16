@@ -1,0 +1,98 @@
+# Script by Arman Sahota ID: 012152815010
+
+# Main script logic in a loop to prompt the user
+do {
+    # Display the user menu
+    Write-Host "Select an option (1-5):"
+    Write-Host "1. List .log files and save to DailyLog.txt"
+    Write-Host "2. List files in this folder alphabetically"
+    Write-Host "3. Show current CPU and memory usage"
+    Write-Host "4. List running processes by virtual memory size"
+    Write-Host "5. Exit the script"
+
+    # Get user input
+    $userChoice = Read-Host "Enter your choice"
+
+    # Create a switch statement based on the user's choice
+    switch ($userChoice) {
+        1 {
+            # Part B1: List .log files and append results to DailyLog.txt
+            try {
+                $folderPath = ".\Requirements1"
+                if (-not (Test-Path $folderPath)) {
+                    Write-Host "Error: Folder 'Requirements1' does not exist!"
+                    continue
+                }
+
+                $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+                $logFiles = Get-ChildItem -Path $folderPath -Filter "*.log" -ErrorAction Stop
+                if ($logFiles) {
+                    $logFiles | ForEach-Object { "$date - $($_.FullName)" } | Out-File -Append "$folderPath\DailyLog.txt"
+                    Write-Host "Log files saved to DailyLog.txt!"
+                } else {
+                    Write-Host "No .log files found in the folder."
+                }
+            } catch {
+                Write-Host "An error occurred: $_"
+            }
+        }
+        2 {
+            # Part B2: List files in tabular format, sorted alphabetically, and save to C916contents.txt
+            try {
+                $folderPath = ".\Requirements1"
+                if (-not (Test-Path $folderPath)) {
+                    Write-Host "Error: Folder 'Requirements1' does not exist!"
+                    continue
+                }
+
+                $files = Get-ChildItem -Path $folderPath | Sort-Object Name
+                if ($files) {
+                    $files | Format-Table Name -AutoSize | Out-File "$folderPath\C916contents.txt"
+                    Write-Host "Files saved to C916contents.txt!"
+                } else {
+                    Write-Host "No files found in the folder."
+                }
+            } catch {
+                Write-Host "An error occurred: $_"
+            }
+        }
+        3 {
+            # Part B3: Show current CPU and memory usage
+            try {
+                $cpuUsage = Get-CimInstance -ClassName Win32_Processor | Select-Object -ExpandProperty LoadPercentage
+                $memoryUsage = Get-CimInstance -ClassName Win32_OperatingSystem | Select-Object -Property FreePhysicalMemory, TotalVisibleMemorySize
+                
+                Write-Host "CPU Usage: $cpuUsage%"
+                Write-Host "Free Memory: $($memoryUsage.FreePhysicalMemory) KB"
+                Write-Host "Total Memory: $($memoryUsage.TotalVisibleMemorySize) KB"
+            } catch {
+                Write-Host "An error occurred while retrieving system usage: $_"
+            }
+        }
+        4 {
+            # Part B4: List running processes sorted by virtual memory size
+            try {
+                Get-Process | Sort-Object -Property VM | Format-Table Name, VM -AutoSize | Out-GridView -Title "Processes by Virtual Memory Size"
+                Write-Host "Process list displayed in grid format."
+            } catch {
+                Write-Host "An error occurred while listing processes: $_"
+            }
+        }
+        5 {
+            # Part B5: Exit the script
+            Write-Host "Exiting the script. Goodbye!"
+            break
+        }
+        default {
+            Write-Host "Invalid choice. Please select a number between 1 and 5."
+        }
+    }
+} while ($userChoice -ne 5)
+
+# Exception Handling: Simulate memory-intensive operation and catch System.OutOfMemoryException
+try {
+    # Example: Simulating memory-intensive operation
+    [byte[]] $largeArray = New-Object byte[] (2GB)
+} catch [System.OutOfMemoryException] {
+    Write-Host "System OutOfMemoryException occurred! Free up resources and try again."
+}
